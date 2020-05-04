@@ -49,7 +49,7 @@
             
             <ul class="nav navbar-nav">
               <li class="dropdown user user-menu">
-                <a href="logout.html" class="">LOGOUT</a>
+                <a href="logout" class="">LOGOUT</a>
               </li>
             </ul>
           </div>
@@ -70,16 +70,16 @@
             </div>
           </div>
           <!-- sidebar menu: : style can be found in sidebar.less -->
-          <ul class="sidebar-menu">
+           <ul class="sidebar-menu">
             <li class="header">MAIN NAVIGATION</li>
-            <li class="treeview"><a href="dashboard.html">
+            <li class="treeview"><a href="dashboardpage">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span></a></li>
-            <li class="active"><a href="users.html"><i class="fa fa-user"></i> <span>Users</span></a></li>
-            <li><a href="operators.html"><i class="fa fa-retweet"></i> <span>Operators</span></a></li>
-            <li class="treeview"><a href="links.html"><i class="fa fa-external-link"></i> <span>     Useful Links</span></a></li>
-            <li class="treeview"><a href="downloads.html">
+            <li><a href="usersjsp"><i class="fa fa-user"></i> <span>Users</span></a></li>
+            <li class="active"><a href="operatorspage"><i class="fa fa-retweet"></i> <span>Operators</span></a></li>
+            <li class="treeview"><a href="linkspage"><i class="fa fa-external-link"></i> <span>     Useful Links</span></a></li>
+            <li class="treeview"><a href="downloadpage">
             <i class="fa fa-download"></i> <span>Downloads</span></a></li>
-            <li><a href="logout.html"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
+            <li><a href="logout"><i class="fa fa-power-off"></i> <span>Logout</span></a></li>
           </ul>
         </section>
         <!-- /.sidebar -->
@@ -105,7 +105,7 @@
 						<div class="box">
 							<div class="box-header">
 								<h3 class="box-title">User List</h3>
-								<a href="add_user.html"><button
+								<a href="adduserpage"><button
 										class="btn btn-block btn-primary btn-sm pull-right"
 										style="width: 100px;">Add User</button></a>
 								<div class="box-tools"></div>
@@ -121,17 +121,19 @@
 											<th class="text-center">email</th>
 											<th class="text-center">password</th>
 											<th class="text-center">mobile</th>
+											<th class="text-center">Course</th>
+											<th class="text-center">Gender</th>
+											<th class="text-center">State</th>
 											<th class="text-center">Edit</th>
 											<th class="text-center">Delete</th>
 
 										</tr>
 									</thead>
-									<%
-											int i=0;
-										for (Users name:nameList) {
-											i++;
 									
-										
+									<%
+											
+										for (Users name:nameList) {
+													
 									%>
 									<tr>
 											<td class="text-center"><input type="checkbox" name="id" value="<%=name.getId()%>"></td>
@@ -140,18 +142,30 @@
 											<td class="text-center"><% out.println(name.getEmail()); %></td>
 											<td class="text-center"><% out.println(name.getPassword()); %></td>
 											<td class="text-center"><% out.println(name.getMobile()); %></td>
-												
+											<td class="text-center"><% out.println(name.getCourse()); %></td>
+											<td class="text-center"><% out.println(name.getGender()); %></td>
+											<td class="text-center"><% out.println(name.getState()); %></td>
+											<td><a href="edit?id=<%=name.getId()%>"><span class="label label-danger"
+													data-toggle="tooltip" data-placement="top"
+													title="Click to Edit">Edit</span></a></td>
+											<td><a href="delete?id=<%=name.getId()%>"><span class="label label-danger"
+													onclick="
+														if('<%=name.getIsDefault()%>' == 'Y'){
+															return alert('You can not delete Default User')
+														}
+														return delete_user('<%=name.getId()%>')"
+													data-toggle="tooltip" data-placement="top"
+													title="Click to Delete">Delete</span></a></td>	
 									</tr>
 									
 								<%
 										}
 								%>
 								</table>
-									<a href="#"><span class="label label-danger"
+									<a href="deleteSelected?id"><span class="label label-danger"
 										onclick="return alert('You can not delete Default User')"
 										data-toggle="tooltip" data-placement="top"
 										title="Click to Delete">Delete</span></a>
-								</table>
 							</div>
 							<!-- /.box-body -->
 						</div>
@@ -246,7 +260,7 @@
     <!-- jQuery 2.1.4 -->
     <script src="../../plugins/jQuery/jQuery-2.1.4.min.js"></script>
     <script>
-    function delete_user(id){
+    function delete_user(){
         if(!confirm("Are you sure you want to delete this user"))
         return false;
 

@@ -57,7 +57,7 @@
 
 
         <br>
-        <a href="pages/examples/register.html" class="text-center">Register a new membership</a>
+        <a href="registerpage" class="text-center">Register a new membership</a>
 
       </div><!-- /.login-box-body -->
     </div><!-- /.login-box -->
@@ -69,50 +69,73 @@
     <!-- iCheck -->
     <script src="plugins/iCheck/icheck.min.js"></script>
     <script>
-    $("#form").submit(function(){
-        var email = $("#email").val();
-        var password = $("#password").val();
+	 function check()
+ 	{
+ 		var success=${success};
+ 		console.log(success);
+ 		var fail=${fail};
+ 		console.log(fail);
 
-        //$("#email_error").text("");
-        //$("#password_error").text("");
+ 		if((success!=null)&&(success!=''))
+ 		{
+ 			alert("Login Successfully..");
+ 		}
 
-        if(email=='' && password==''){
-          $("#email_error").text("Please enter email.");
-          $("#password_error").text("Please enter password.");
-          return false;
-        }
+ 		if((fail!=null)&&(fail!=''))
+ 		{
+ 			alert("Login Unsuccessfully..");
+ 		}
+     } 
 
-        if(email!='' && password==''){
-          if(!validateEmail(email)){
-            $("#email_error").text("Please enter valid email.");
-          }                        
-          $("#password_error").text("Please enter password.");
 
-          return false;
-        }
+   $("#login").submit(function(){
+     var email = $("#email").val();
+     var password = $("#password").val();
+		
+		//$("#email_error").text("");
+     //$("#password_error").text("");
 
-        if(email=='' && password!=''){
-            $("#email_error").text("Please enter email");
-            return false;
-          }
+     if(email=='' && password==''){
+       $("#email_error").text("Please enter email.");
+       $("#password_error").text("Please enter password.");
+       return false;
+     }
+
+     if(email!='' && password==''){
+       if(!validateEmail(email)){
+         $("#email_error").text("Please enter valid email.");
+       }else{
         
-      });
-        
-        
-      });
+       }
+       $("#password_error").text("Please enter password.");
 
-      $(function () {
-        $('input').iCheck({
-          checkboxClass: 'icheckbox_square-blue',
-          radioClass: 'iradio_square-blue',
-          increaseArea: '20%' // optional
-        });
-      });
+       return false;
+     }
 
-      function validateEmail($email) {
-        var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-        return emailReg.test( $email );
-      }
+     if(email=='' && password!=''){
+       if(password!=''){      
+         $("#password_error").text("Please enter password..");
+       }else{
+         $("#password_error").text("");
+       }
+
+       $("#email_error").text("Please enter email");
+       return false;
+     }  
+   });
+
+    $(function () {
+     $('input').iCheck({
+       checkboxClass: 'icheckbox_square-blue',
+       radioClass: 'iradio_square-blue',
+       increaseArea: '20%' // optional
+     });
+   });
+
+   function validateEmail($email) {
+     var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+     return emailReg.test( $email );
+   }
     </script>
   </body>
 </html>
